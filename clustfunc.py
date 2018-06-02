@@ -16,7 +16,7 @@ def adjaceancy(riderlist):
     print(adj)
     return adj
 
-def Cluster(adj):
+def cluster(adj,riderlist):
     num_rid = len(adj[0])
     num_ungrp = num_rid
     clusters = []
@@ -85,7 +85,8 @@ def Cluster(adj):
     
         if num_ungrp <= 1:
             clustered = True
-            clusters.append(clus_ind[0])
+            if len(clus_ind) != 0: 
+                clusters.append(clus_ind[0])
     
     # converts list of list of indices, into list of list of names
     num_clus = len(clusters)
@@ -135,7 +136,7 @@ def LocGrpMatch(Groups,PickupPoints):
                                 # since 'name' is a common element to both the
                                 # people list and the location list, I print
                                 # the 'name' elements of all the items
-        return Groups
+    return Groups
 
             # Group is a list of lists (the original group of people from the
             # the clustering algorithm, plus the location)      
