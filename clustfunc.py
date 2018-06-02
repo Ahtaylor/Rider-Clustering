@@ -34,8 +34,8 @@ def Cluster(adj):
         # finds the shortest distance, stores the coordinates, and constructs values for what
         # rows and columns to removed later
         short = np.nanargmin(adj)
-        A = int(short//num_rid)
-        B = int(short%num_rid)
+        A = int(short//num_ungrp)
+        B = int(short%num_ungrp)
         first = np.maximum(A,B)
         second = np.minimum(A,B)
 
