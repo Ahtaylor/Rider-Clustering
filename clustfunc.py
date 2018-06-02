@@ -95,3 +95,47 @@ def Cluster(adj):
             clusters[i][j] = riderlist[clusters[i][j]]
 
     return clusters
+
+
+
+def LocGrpMatch(Groups,PickupPoints):
+    for Group in Groups:
+        xtot = 0
+        ytot = 0
+        for i in Group:
+            xtot += float(i['x'])
+            ytot += float(i['y'])
+            xcenter = xtot/len(Group)
+            ycenter = ytot/len(Group)
+                                # The above finds the epicenter of the group
+        FinalPickupDisp = [9999999]
+        FinalPickupName = ['Filler']
+                                # "empty" lists, My strategy here was to find
+                                # find the net displacement of each possible
+                                # pickup point to the group's epicenter.
+                                # I needed both information, the total distance
+                                # and the actual name of the pickup point.
+                                # My strategy was to find the displacement for
+                                # each point, and if that was smaller than the
+                                # displacement of any other already in the list
+                                # then it will be appended (i.e. the last point
+                                # listed will always be the closest)
+        for PickupPoint in PickupPoints:
+            LocX = float(PickupPoint['x'])
+            LocY = float(PickupPoint['y'])
+            xdisp = LocX-xcenter
+            ydisp = LocY-ycenter
+            disp = xdisp**2 + ydisp**2
+            if disp < min(FinalPickupDisp):
+                FinalPickupDisp.append(disp)
+                FinalPickupName.append(PickupPoint)
+        Group.append(FinalPickupName[-1])
+                                # The closest point is the last item, so I
+                                # append that to the group of people. 
+                                # since 'name' is a common element to both the
+                                # people list and the location list, I print
+                                # the 'name' elements of all the items
+        return Groups
+
+            # Group is a list of lists (the original group of people from the
+            # the clustering algorithm, plus the location)      
